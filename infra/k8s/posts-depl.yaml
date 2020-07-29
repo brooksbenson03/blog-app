@@ -1,0 +1,31 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: posts-depl
+spec:
+  replicas: 1 # number of pods
+  selector: # tells depl what pods to manage
+    matchLabels:
+      app: posts
+  template: # specify config for pod
+    metadata:
+      labels:
+        app: posts
+    spec:
+      containers:
+        - name: posts
+          image: brooksur/posts-srv
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: posts-srv
+spec:
+  type: ClusterIP
+  selector:
+    app: posts
+  ports:
+    - name: event-bus
+      protocol: TCP
+      port: 4000
+      targetPort: 4000
