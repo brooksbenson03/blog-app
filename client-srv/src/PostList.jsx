@@ -7,7 +7,7 @@ export default () => {
   const [posts, setPosts] = useState({})
 
   const fetchPosts = async () => {
-    const res = await axios.get('http://localhost:4002/posts')
+    const res = await axios.get('http://posts.com/posts')
 
     setPosts(res.data)
   }
@@ -16,7 +16,7 @@ export default () => {
     fetchPosts()
   }, []) // array causes one run
 
-  const renderedPosts = Object.values(posts).map((p) => (
+  const renderedPosts = Object.values(posts).map(p => (
     <div
       key={p.id}
       className="card"

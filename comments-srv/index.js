@@ -10,8 +10,8 @@ app.use(cors())
 
 const commentsByPostId = {}
 
-const sendEvent = async (event) => {
-  await axios.post('http://localhost:4005/events', event)
+const sendEvent = async event => {
+  await axios.post('http://event-bus-srv:4005/events', event)
 }
 
 app.get('/posts/:id/comments', (req, res) => {
@@ -37,7 +37,7 @@ app.post('/events', async (req, res) => {
   if (type === 'CommentModerated') {
     const { id, postId, status, content } = data
     const comments = commentsByPostId[postId]
-    const comment = comments.find((c) => c.id === id)
+    const comment = comments.find(c => c.id === id)
     comment.status = status
     await sendEvent({
       type: 'CommentUpdated',

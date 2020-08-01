@@ -1,31 +1,31 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: posts-depl
+  name: query-depl
 spec:
   replicas: 1 # number of pods
   selector: # tells depl what pods to manage
     matchLabels:
-      app: posts
+      app: query
   template: # specify config for pod
     metadata:
       labels:
-        app: posts
+        app: query
     spec:
       containers:
-        - name: posts
-          image: brooksur/posts-srv
+        - name: query
+          image: brooksur/query-srv
 ---
 apiVersion: v1
 kind: Service
 metadata:
-  name: posts-srv
+  name: query-srv
 spec:
   type: ClusterIP
   selector:
-    app: posts
+    app: query
   ports:
-    - name: posts-srv
+    - name: query-srv
       protocol: TCP
-      port: 4000
-      targetPort: 4000
+      port: 4002
+      targetPort: 4002

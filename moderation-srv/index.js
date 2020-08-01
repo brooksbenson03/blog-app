@@ -5,8 +5,8 @@ const axios = require('axios')
 const app = express()
 app.use(bodyParser.json())
 
-const sendEvent = async (event) => {
-  await axios.post('http://localhost:4005/events', event)
+const sendEvent = async event => {
+  await axios.post('http://event-bus-srv:4005/events', event)
 }
 
 app.post('/events', async (req, res) => {
